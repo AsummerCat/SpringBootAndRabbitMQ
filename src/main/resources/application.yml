@@ -1,0 +1,13 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name:  boot-rabbitMq
+  rabbitmq:
+    host: 112.74.43.136
+    port: 5672
+    username: cat
+    password: cat
+
+
