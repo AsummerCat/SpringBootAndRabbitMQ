@@ -9,5 +9,12 @@ spring:
     port: 5672
     username: cat
     password: cat
-
-
+    publisher-confirms: true #  消息发送到交换机确认机制,是否确认回调
+    publisher-returns: true  # 消息返回确认
+    ##开启ack
+    listener:
+      direct:
+      ## 采取手动应答
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual
