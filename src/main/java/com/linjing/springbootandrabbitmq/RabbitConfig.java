@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * RabbitMQ配置类
  */
@@ -70,6 +73,7 @@ public class RabbitConfig {
      */
     @Bean
     public DirectExchange directBasicExchange() {
+        Map<String, Object> arguments = new HashMap<>();
         return new DirectExchange(DIRECT_EXCHANGE);
     }
 

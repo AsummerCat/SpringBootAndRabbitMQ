@@ -74,4 +74,58 @@ public class SendController {
     }
 
 
+    @RequestMapping("sendArguments")
+    public String sendArguments() {
+        String context = "测试参数发送请求" + new Date();
+        System.out.println("Sender : " + context);
+        //发送请求
+        //队列名称 ->路由队列名称 ->内容
+        for (int i = 0; i < 10; i++) {
+            CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+            rabbitTemplate.convertAndSend("ArgumentsExchange", "Arguments", context, correlationData);
+        }
+        return "发送消息成功";
+    }
+
+    @RequestMapping("sendDie")
+    public String sendDie() {
+        String context = "测试参数发送请求" + new Date();
+        System.out.println("Sender : " + context);
+        //发送请求
+        //队列名称 ->路由队列名称 ->内容
+        for (int i = 0; i < 10; i++) {
+            CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+            rabbitTemplate.convertAndSend("dieExchange", "Arguments", context, correlationData);
+        }
+        return "发送消息成功";
+    }
+
+    @RequestMapping("sendTimeout")
+    public String sendTimeout() {
+        String context = "测试参数发送请求" + new Date();
+        System.out.println("Sender : " + context);
+        //发送请求
+        //队列名称 ->路由队列名称 ->内容
+        for (int i = 0; i < 10; i++) {
+            CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+            rabbitTemplate.convertAndSend("timeoutExchange", "Arguments", context, correlationData);
+        }
+        return "发送消息成功";
+    }
+
+
+    @RequestMapping("sendAlternate")
+    public String sendAlternate() {
+        String context = "测试参数发送请求" + new Date();
+        System.out.println("Sender : " + context);
+        //发送请求
+        //队列名称 ->路由队列名称 ->内容
+        for (int i = 0; i < 10; i++) {
+            CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+            rabbitTemplate.convertAndSend("ArgumentsExchange", "dddd", context, correlationData);
+        }
+        return "发送消息成功";
+    }
+
+
 }
