@@ -16,5 +16,7 @@ spring:
       direct:
       ## 采取手动应答
         acknowledge-mode: manual
+        ## 批量一次性接收多少条数据
+        prefetch:  10
       simple:
         acknowledge-mode: manual

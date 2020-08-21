@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.MessageConversionException;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -178,13 +180,13 @@ public class RabbitConfig {
         // 消息发送失败返回到队列中, yml需要配置 publisher-returns: true
         rabbitTemp.setMandatory(true);
 
-        // 消息返回, yml需要配置 publisher-returns: true
+        // 消费者ACK消息返回, yml需要配置 publisher-returns: true
         rabbitTemp.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
             String correlationId = message.getMessageProperties().toString();
             log.info("消息：{} 发送失败, 应答码：{} 原因：{} 交换机: {}  路由键: {}", correlationId, replyCode, replyText, exchange, routingKey);
         });
 
-        // 消息确认, yml需要配置 publisher-confirms: true
+        // 生产者发送消息确认, yml需要配置 publisher-confirms: true
         rabbitTemp.setConfirmCallback((correlationData, ack, cause) -> {
             if (ack) {
                 log.info("消息发送到exchange成功,id: {}", correlationData.getId());
@@ -192,6 +194,26 @@ public class RabbitConfig {
                 log.info("消息发送到exchange失败,原因: {}", cause);
             }
         });
+//        rabbitTemp.setMessageConverter(new MessageConverter() {
+//           //发送消息要转换的  生产者重写
+//            @Override
+//            public Message toMessage(Object o, MessageProperties messageProperties) throws MessageConversionException {
+//               //指定输出格式
+//                messageProperties.setContentType("text/xml");
+//                messageProperties.setContentEncoding("UTF-8");
+//                Message message=new Message(JSON.toJSONBytes(o),messageProperties);
+//                System.out.println("调用了消息解析器");
+//                return null;
+//            }
+//
+//            //接收消息要转换的  消费者者重写
+//            @Override
+//            public Object fromMessage(Message message) throws MessageConversionException {
+//              //使用json解析
+//                System.out.println(new String(message.getBody(),"UTF-8"));
+//                return null;
+//            }
+//        });
         return rabbitTemp;
     }
 
