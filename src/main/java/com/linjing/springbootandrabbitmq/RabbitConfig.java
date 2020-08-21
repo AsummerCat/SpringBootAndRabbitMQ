@@ -217,18 +217,18 @@ public class RabbitConfig {
         return rabbitTemp;
     }
 
-    ///**
-    // * 定制化amqp模版 事务模式
-    // */
-    //@Bean
-    ////@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    //public RabbitTemplate rabbitTemplate() {
-    //    Logger log = LoggerFactory.getLogger(RabbitTemplate.class);
-    //    RabbitTemplate rabbitTemp = new RabbitTemplate(connectionFactory);
-    //    // 消息发送失败返回到队列中, yml需要配置 publisher-returns: true
-    //    rabbitTemp.setMandatory(true);
-    //    //开启事务
-    //    rabbitTemp.setChannelTransacted(true);
-    //    return rabbitTemp;
-    //}
+//    /**
+//     * 定制化amqp模版 事务模式
+//     */
+//    @Bean
+//    //@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+//    public RabbitTemplate rabbitTemplate() {
+//        Logger log = LoggerFactory.getLogger(RabbitTemplate.class);
+//        RabbitTemplate rabbitTemp = new RabbitTemplate(connectionFactory);
+//        // 消息发送失败返回到队列中, yml需要配置 publisher-returns: true
+//        rabbitTemp.setMandatory(true);
+//        //开启事务
+//        rabbitTemp.setChannelTransacted(true);
+//        return rabbitTemp;
+//    }
 }
